@@ -43,7 +43,7 @@ namespace WebLearningOffline
 
         private void checkedListBox1_ItemCheck(object sender, ItemCheckEventArgs e)
         {
-            if (button2.Text != "开始！")
+            if (button2.Text != "开始")
             {
                 e.NewValue = e.CurrentValue;
                 Console.Beep();
@@ -176,7 +176,7 @@ namespace WebLearningOffline
 
         private void checkedListBox2_ItemCheck(object sender, ItemCheckEventArgs e)
         {
-            if (button2.Text != "开始！")
+            if (button2.Text != "开始")
             {
                 e.NewValue = e.CurrentValue;
                 var freq = (int)(440 * Math.Pow(2.0, (checkedListBox2.Items.Count / 2 - e.Index) / 12.0));
@@ -433,7 +433,7 @@ namespace WebLearningOffline
             groupBox2.Text = "选择要下载的课程";
 
             button2.Enabled = false;
-            button2.Text = "开始！";
+            button2.Text = "开始";
             Form2_Load(null, null);
             return;
         }
@@ -947,11 +947,11 @@ namespace WebLearningOffline
             System.Diagnostics.Process.Start("http://student.tsinghua.edu.cn/");
         }
 
-        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
-        {
-            System.Diagnostics.Process.Start("http://student.tsinghua.edu.cn/");
-            linkLabel1.LinkVisited = true;
-        }
+        //private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        //{
+        //    System.Diagnostics.Process.Start("http://student.tsinghua.edu.cn/");
+        //    linkLabel1.LinkVisited = true;
+        //}
 
         private void folderBrowserDialog1_HelpRequest(object sender, EventArgs e)
         {

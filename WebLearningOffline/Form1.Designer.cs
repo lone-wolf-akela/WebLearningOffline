@@ -37,10 +37,9 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(178, 142);
-            this.button1.Margin = new System.Windows.Forms.Padding(6);
+            this.button1.Location = new System.Drawing.Point(89, 68);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(150, 48);
+            this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 3;
             this.button1.Text = "登录";
             this.button1.UseVisualStyleBackColor = true;
@@ -48,59 +47,54 @@
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(126, 85);
-            this.textBox2.Margin = new System.Windows.Forms.Padding(6);
+            this.textBox2.Location = new System.Drawing.Point(63, 41);
             this.textBox2.Name = "textBox2";
             this.textBox2.PasswordChar = '*';
-            this.textBox2.Size = new System.Drawing.Size(248, 31);
+            this.textBox2.Size = new System.Drawing.Size(164, 21);
             this.textBox2.TabIndex = 2;
             this.textBox2.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox2_KeyPress);
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(126, 31);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(6);
+            this.textBox1.Location = new System.Drawing.Point(63, 15);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(248, 31);
+            this.textBox1.Size = new System.Drawing.Size(164, 21);
             this.textBox1.TabIndex = 1;
             this.textBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox1_KeyPress);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(32, 92);
-            this.label2.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label2.Location = new System.Drawing.Point(16, 44);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(54, 25);
+            this.label2.Size = new System.Drawing.Size(29, 12);
             this.label2.TabIndex = 5;
             this.label2.Text = "密码";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(32, 37);
-            this.label1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label1.Location = new System.Drawing.Point(16, 18);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(75, 25);
+            this.label1.Size = new System.Drawing.Size(41, 12);
             this.label1.TabIndex = 4;
             this.label1.Text = "用户名";
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(410, 221);
+            this.ClientSize = new System.Drawing.Size(239, 109);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Margin = new System.Windows.Forms.Padding(6);
             this.MaximizeBox = false;
             this.Name = "Form1";
-            this.Text = "网络学堂离线";
+            this.Text = "网络学堂离线版";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.Form1_FormClosed);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
