@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Sockets;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -454,8 +455,35 @@ namespace WebLearningOffline
             }
             catch (Exception) { }
         }
+
+        public static String SeverReadline(this NetworkStream cServer)
+        {
+            String retStr = "";
+            while (true)
+            {                
+                int len = cServer.ReadByte();
+                if (len < 0)
+                {
+                    throw new Exception("error, unfinished line.");
+                }
+
+                char c = (char)len;
+                if (c == '\n')
+                {
+                    //remove '\r' at the end of the line
+                    retStr = retStr.TrimEnd('\r');
+                    return retStr;
+                }
+                else
+                {
+                    retStr += c;
+                }
+            }
+        }
     }
-    
+
+    public enum ServerResponseFormat { Unknown, Length, Chunked }
+
     public class CookieAwareWebClient : WebClient
     {
         public CookieContainer m_container = new CookieContainer();

@@ -325,7 +325,7 @@ namespace WebLearningOffline
                             {
                                 stream.Write(array, 0, array.Length);
                                 stream.Flush();
-                                var rc = stream.Read(buf, 0, buf.Length);
+                                /*var rc = stream.Read(buf, 0, buf.Length);
                                 var i = 0;
                                 for (; i < rc; i++)
                                 {
@@ -334,10 +334,89 @@ namespace WebLearningOffline
                                         i = i + 4;
                                         break;
                                     }
+                                }*/
+
+                                //read response header
+                                var headerlines = new List<String>();
+                                while (true)
+                                {
+                                    headerlines.Add(stream.SeverReadline());                
+                                    if (!headerlines.Last().Any())
+                                        break;
+                                }
+
+                                //check data format
+                                ServerResponseFormat format;                             
+                                format = ServerResponseFormat.Unknown;
+                                Int64 contentLen = -1;
+                                foreach (var i in headerlines)
+                                {
+                                    if(i.StartsWith("Content-Length: "))
+                                    {
+                                        format = ServerResponseFormat.Length;
+                                        contentLen = Int64.Parse(i.Substring(16));
+                                        break;
+                                    }
+                                    else if (i == "Transfer-Encoding: chunked")
+                                    {
+                                        format = ServerResponseFormat.Chunked;
+                                        break;
+                                    }
+                                }
+
+                                if (format == ServerResponseFormat.Unknown)
+                                {
+                                    throw new Exception("Server Response Format Unknown.");
                                 }
                                 using (var fs = new FileStream(local, FileMode.Create))
                                 {
-                                    nsize = rc - i;
+                                    if (format == ServerResponseFormat.Length)
+                                    {
+                                        while (nsize < contentLen)
+                                        {
+                                            var len = stream.Read(buf, 0, buf.Length);
+                                            if (len <= 0)
+                                            {
+                                                throw new Exception("error, unfinished downloading.");
+                                            }
+                                            fs.Write(buf, 0, len);
+
+                                            nsize += len;
+                                            Util.SetProgressSafe(progressBar3, nsize, tsize);
+                                            Util.SetProgressSafe(progressBar2, receivedsize + nsize, totalsize);
+                                            label2.Text = "完成" + nextdownjob + "/" + downlist.Count + "个 " + Util.BytesToString(receivedsize + nsize) + "/" + Util.BytesToString(totalsize) + " 成功" + succ + " 失败" + (nextdownjob - succ);
+                                            label3.Text = "当前文件" + Util.BytesToString(nsize) + "/" + Util.BytesToString(tsize) + " " + downlist[nextdownjob].name;
+                                        }
+                                    }
+                                    else //format == ServerResponseFormat.Chunked
+                                    {
+                                        while (true)
+                                        {
+                                            Int64 chunkSize = Convert.ToInt64(stream.SeverReadline(), 16);
+                                            if (chunkSize == 0)
+                                                break;
+                                            Int64 chunkDownloadedSize = 0;
+                                            while (chunkDownloadedSize < chunkSize)
+                                            {
+                                                var len = stream.Read(buf, 0, (int)Math.Min(buf.Length, chunkSize - chunkDownloadedSize));
+                                                if (len <= 0)
+                                                {
+                                                    throw new Exception("error, unfinished downloading.");
+                                                }
+                                                fs.Write(buf, 0, len);
+
+                                                chunkDownloadedSize += len;
+
+                                                nsize += len;
+                                                Util.SetProgressSafe(progressBar3, nsize, tsize);
+                                                Util.SetProgressSafe(progressBar2, receivedsize + nsize, totalsize);
+                                                label2.Text = "完成" + nextdownjob + "/" + downlist.Count + "个 " + Util.BytesToString(receivedsize + nsize) + "/" + Util.BytesToString(totalsize) + " 成功" + succ + " 失败" + (nextdownjob - succ);
+                                                label3.Text = "当前文件" + Util.BytesToString(nsize) + "/" + Util.BytesToString(tsize) + " " + downlist[nextdownjob].name;
+                                            }
+                                            stream.SeverReadline();
+                                        }
+                                    }
+                                    /*nsize = rc - i;
                                     fs.Write(buf, i, (int)nsize);
                                     while (nsize < tsize)
                                     {
@@ -350,7 +429,7 @@ namespace WebLearningOffline
                                         Util.SetProgressSafe(progressBar2, receivedsize + nsize, totalsize);
                                         label2.Text = "完成" + nextdownjob + "/" + downlist.Count + "个 " + Util.BytesToString(receivedsize + nsize) + "/" + Util.BytesToString(totalsize) + " 成功" + succ + " 失败" + (nextdownjob - succ);
                                         label3.Text = "当前文件" + Util.BytesToString(nsize) + "/" + Util.BytesToString(tsize) + " " + downlist[nextdownjob].name;
-                                    }
+                                    }*/
                                 }
                             }
                         }
