@@ -680,7 +680,8 @@ namespace WebLearningOffline
                     {
                         var page1 = Http.Get("http://learn.tsinghua.edu.cn/MultiLanguage/lesson/student/MyCourse.jsp", out mycookies, mycookies);
                         var link1 = Regex.Match(page1, @"iframe src=(.+?) ").Groups[1].Value;
-                        mycookies = new CookieCollection();
+                        //why here create new coockie container?
+                        //mycookies = new CookieCollection();
                         Http.Get(link1, out mycookies, mycookies, false);
                         var course_config = Http.Get("http://learn.cic.tsinghua.edu.cn/b/myCourse/course_config/list/" + course.id + "/S", out mycookies, mycookies);
                         if (course_config.Contains("coursenotice") && checkedListBox1.GetItemChecked(1) && !File.Exists(home + "课程公告.html"))
