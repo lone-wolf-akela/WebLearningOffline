@@ -3,7 +3,6 @@ using System.Text;
 using System.IO;
 using System.Net;
 using System.Threading;
-using System.Net;
 using System.Net.Http;
 namespace WebLearningOffline
 {
